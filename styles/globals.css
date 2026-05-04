@@ -1,0 +1,460 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   PREMIUM FONT IMPORTS
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+:root {
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-jost: 'Jost', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+
+  /* Color tokens */
+  --color-ivory: #F8F3E8;
+  --color-ivory-50: #FDFBF7;
+  --color-sandstone: #D4C4A0;
+  --color-saffron: #FF9933;
+  --color-saffron-dark: #E8821A;
+  --color-maroon: #8B0000;
+  --color-gold: #B8860B;
+  --color-gold-light: #D4AF37;
+  --color-gold-shine: #FFD700;
+  --color-charcoal: #2D2D2D;
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #B8860B 50%, #FFD700 100%);
+  --gradient-saffron: linear-gradient(135deg, #FF9933 0%, #E8821A 100%);
+  --gradient-divine: linear-gradient(180deg, transparent 0%, rgba(248,243,232,0.95) 100%);
+
+  /* Shadows */
+  --shadow-card: 0 8px 32px rgba(45,45,45,0.08);
+  --shadow-card-hover: 0 20px 60px rgba(45,45,45,0.15);
+  --shadow-gold: 0 0 30px rgba(184,134,11,0.25);
+
+  /* Transition */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-jost);
+  background-color: var(--color-ivory-50);
+  color: var(--color-charcoal);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-cormorant);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-saffron);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: rgba(255, 153, 51, 0.2);
+  color: var(--color-maroon);
+}
+
+/* ============================================
+   CUSTOM COMPONENTS
+   ============================================ */
+@layer components {
+
+  /* Gold divider */
+  .divider-gold {
+    @apply relative flex items-center justify-center py-8;
+  }
+  .divider-gold::before,
+  .divider-gold::after {
+    content: '';
+    @apply flex-1 h-px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  }
+  .divider-gold .divider-icon {
+    @apply mx-4 text-gold opacity-70;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-saffron text-sm font-body tracking-[0.3em] uppercase font-medium;
+  }
+
+  /* Premium heading */
+  .heading-display {
+    @apply font-heading font-light text-charcoal-dark;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.05;
+  }
+
+  /* Gold button */
+  .btn-gold {
+    @apply inline-flex items-center gap-2.5 px-8 py-3.5 text-ivory-50 font-body font-medium text-sm tracking-wider uppercase transition-all duration-300 relative overflow-hidden;
+    background: var(--gradient-gold);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 2px;
+  }
+  .btn-gold::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, rgba(255,215,0,0.3), transparent);
+  }
+  .btn-gold:hover::before {
+    @apply opacity-100;
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(184,134,11,0.4);
+  }
+
+  /* Saffron button */
+  .btn-saffron {
+    @apply inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-body font-medium text-sm tracking-wider uppercase transition-all duration-300 relative overflow-hidden;
+    background: var(--gradient-saffron);
+    border-radius: 2px;
+  }
+  .btn-saffron:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,153,51,0.4);
+  }
+
+  /* Outline button */
+  .btn-outline {
+    @apply inline-flex items-center gap-2.5 px-8 py-3.5 font-body font-medium text-sm tracking-wider uppercase transition-all duration-300;
+    color: var(--color-charcoal);
+    border: 1.5px solid var(--color-sandstone);
+    border-radius: 2px;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(184,134,11,0.15);
+  }
+
+  /* Premium card */
+  .card-premium {
+    @apply bg-white rounded-sm overflow-hidden transition-all duration-500;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(212, 196, 160, 0.3);
+  }
+  .card-premium:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+  }
+
+  /* Glass card */
+  .card-glass {
+    @apply rounded-sm overflow-hidden;
+    background: rgba(253, 251, 247, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 8px 32px rgba(45,45,45,0.08);
+  }
+
+  /* Gold border card */
+  .card-gold-border {
+    @apply relative;
+  }
+  .card-gold-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-sm pointer-events-none;
+    background: linear-gradient(135deg, rgba(184,134,11,0.4), transparent 40%, transparent 60%, rgba(184,134,11,0.4));
+    padding: 1px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  /* Text gold gradient */
+  .text-gold-gradient {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Lotus divider */
+  .lotus-divider {
+    @apply flex items-center gap-4 my-2;
+  }
+  .lotus-divider::before,
+  .lotus-divider::after {
+    content: '';
+    @apply h-px flex-1;
+    background: linear-gradient(90deg, transparent, rgba(184,134,11,0.4), transparent);
+  }
+}
+
+/* ============================================
+   TEMPLE PATTERN BACKGROUND
+   ============================================ */
+.bg-temple-subtle {
+  background-color: var(--color-ivory-50);
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(255,153,51,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(184,134,11,0.04) 0%, transparent 50%);
+}
+
+.bg-temple-rich {
+  background: linear-gradient(135deg, #1A0A05 0%, #2D1206 50%, #1A0A05 100%);
+}
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+.glow-saffron {
+  box-shadow: 0 0 40px rgba(255, 153, 51, 0.3), 0 0 80px rgba(255, 153, 51, 0.1);
+}
+
+.glow-gold {
+  box-shadow: 0 0 40px rgba(184, 134, 11, 0.3), 0 0 80px rgba(184, 134, 11, 0.1);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+/* ============================================
+   PARTICLES
+   ============================================ */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particle var(--duration, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ============================================
+   SCROLLING MARQUEE
+   ============================================ */
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+.lightbox-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  background: rgba(10, 5, 2, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* ============================================
+   GALLERY MASONRY
+   ============================================ */
+.gallery-masonry {
+  columns: 3;
+  column-gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .gallery-masonry { columns: 2; }
+}
+@media (max-width: 640px) {
+  .gallery-masonry { columns: 1; }
+}
+
+.gallery-masonry .gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   WHATSAPP FLOATING BUTTON
+   ============================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+}
+.whatsapp-float .pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.4);
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0; }
+}
+
+/* ============================================
+   COUNTER
+   ============================================ */
+.counter-item {
+  @apply text-center p-6;
+}
+
+/* ============================================
+   ACCORDION
+   ============================================ */
+.accordion-trigger {
+  @apply w-full flex items-center justify-between py-5 px-0 text-left font-heading text-xl text-charcoal-dark;
+  transition: color 0.3s ease;
+}
+.accordion-trigger:hover {
+  color: var(--color-maroon);
+}
+
+/* ============================================
+   SWIPER CUSTOMIZATION
+   ============================================ */
+.swiper-pagination-bullet {
+  background: var(--color-sandstone) !important;
+  opacity: 1 !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+.swiper-pagination-bullet-active {
+  background: var(--color-gold) !important;
+  width: 24px !important;
+  border-radius: 4px !important;
+  transition: width 0.3s ease !important;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+.form-input {
+  @apply w-full px-4 py-3.5 font-body text-sm text-charcoal bg-ivory-50 outline-none transition-all duration-300;
+  border: 1px solid rgba(212, 196, 160, 0.5);
+  border-radius: 2px;
+}
+.form-input:focus {
+  border-color: var(--color-gold);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.08);
+}
+.form-input::placeholder {
+  color: rgba(45,45,45,0.4);
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar-transparent {
+  background: transparent;
+}
+.navbar-scrolled {
+  background: rgba(253, 251, 247, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 20px rgba(45,45,45,0.06);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero-gradient-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 5, 2, 0.25) 0%,
+    rgba(10, 5, 2, 0.1) 30%,
+    rgba(10, 5, 2, 0.3) 70%,
+    rgba(10, 5, 2, 0.7) 100%
+  );
+}
+
+/* ============================================
+   PROCESS TIMELINE
+   ============================================ */
+.timeline-line {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE OVERRIDES
+   ============================================ */
+@media (max-width: 768px) {
+  .heading-display {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  .btn-gold, .btn-saffron, .btn-outline {
+    @apply px-6 py-3 text-xs;
+  }
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+@media print {
+  .whatsapp-float, .navbar { display: none !important; }
+}
