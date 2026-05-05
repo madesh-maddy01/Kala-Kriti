@@ -1,3 +1,5 @@
+'use client'
+
 import { Phone, Mail, Instagram, Facebook, MessageCircle, Crown } from 'lucide-react'
 import { siteConfig, getWhatsAppUrl, getPhoneUrl } from '@/lib/config'
 
@@ -112,44 +114,53 @@ export function Footer() {
               <span className="h-px w-8 bg-gold block" />
               Contact Us
             </h3>
-            <div className="space-y-4">
-              <a href={getPhoneUrl()} className="flex items-start gap-3 group">
-                <Phone size={15} className="mt-0.5 text-gold-light shrink-0" />
-                <div>
-                  <p className="text-xs text-white/40 font-body mb-0.5">Phone</p>
-                  <p className="text-sm text-white/70 group-hover:text-saffron transition-colors font-body">
-                    {siteConfig.phone}
-                  </p>
-                </div>
-              </a>
-
-              {/* WhatsApp — click to open */}
-              <a
-                href={getWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 group"
+            <div className="space-y-2">
+              <a href={getPhoneUrl()}
+                className="flex items-center gap-3 px-3 py-3.5 rounded-lg group transition-all duration-300 hover:translate-x-1"
+                style={{ background: 'rgba(249,115,22,0.08)', border: '1px solid rgba(249,115,22,0.18)' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.16)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249,115,22,0.4)' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.08)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249,115,22,0.18)' }}
               >
-                <MessageCircle size={15} className="mt-0.5 text-green-400 shrink-0" />
-                <div>
-                  <p className="text-xs text-white/40 font-body mb-0.5">WhatsApp</p>
-                  <p className="text-sm text-white/70 group-hover:text-green-400 transition-colors font-body">
-                    {siteConfig.phone}
-                  </p>
-                  <p className="text-[10px] text-green-400/60 font-body mt-0.5">
-                    Click to open WhatsApp →
-                  </p>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(249,115,22,0.2)' }}>
+                  <Phone size={15} className="text-saffron" />
                 </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] text-white/40 font-body uppercase tracking-wider mb-0.5">Call Us</p>
+                  <p className="text-sm text-white/85 font-body font-semibold">{siteConfig.phone}</p>
+                </div>
+                <Phone size={13} className="text-saffron/50 group-hover:text-saffron transition-colors shrink-0" />
               </a>
 
-              <a href={`mailto:${siteConfig.email}`} className="flex items-start gap-3 group">
-                <Mail size={15} className="mt-0.5 text-gold-light shrink-0" />
-                <div>
-                  <p className="text-xs text-white/40 font-body mb-0.5">Email</p>
-                  <p className="text-sm text-white/70 group-hover:text-saffron transition-colors font-body break-all">
-                    {siteConfig.email}
-                  </p>
+              <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-3 px-3 py-3.5 rounded-lg group transition-all duration-300 hover:translate-x-1"
+                style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.18)' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.16)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(34,197,94,0.4)' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.08)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(34,197,94,0.18)' }}
+              >
+                <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(34,197,94,0.2)' }}>
+                  <MessageCircle size={15} className="text-green-400" />
                 </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] text-white/40 font-body uppercase tracking-wider mb-0.5">WhatsApp</p>
+                  <p className="text-sm text-white/85 font-body font-semibold">{siteConfig.phone}</p>
+                </div>
+                <MessageCircle size={13} className="text-green-400/50 group-hover:text-green-400 transition-colors shrink-0" />
+              </a>
+
+              <a href={`mailto:${siteConfig.email}`}
+                className="flex items-center gap-3 px-3 py-3.5 rounded-lg group transition-all duration-300 hover:translate-x-1"
+                style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.18)' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(212,175,55,0.16)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(212,175,55,0.4)' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(212,175,55,0.08)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(212,175,55,0.18)' }}
+              >
+                <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(212,175,55,0.2)' }}>
+                  <Mail size={15} className="text-gold-light" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] text-white/40 font-body uppercase tracking-wider mb-0.5">Email</p>
+                  <p className="text-sm text-white/85 font-body font-semibold truncate">{siteConfig.email}</p>
+                </div>
+                <Mail size={13} className="text-gold-light/50 group-hover:text-gold-light transition-colors shrink-0" />
               </a>
             </div>
           </div>

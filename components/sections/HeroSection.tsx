@@ -37,7 +37,7 @@ export function HeroSection() {
       {/* Background with Parallax */}
       <motion.div className="absolute inset-0 z-0" style={{ y, scale }}>
         <Image
-          src="/images/hero-image.jpg"
+          src="/images/hero-image.webp"
           alt="Radha Krishna — Kala Kriti"
           fill
           priority
@@ -96,30 +96,9 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Gold plating shimmer banner */}
+      {/* Main Content — pt-24 reserves navbar height so justify-center never overlaps it */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6, duration: 0.6 }}
-        className="absolute top-24 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
-      >
-        <div className="flex items-center gap-3 px-5 py-2 rounded-full"
-          style={{
-            background: 'linear-gradient(135deg, rgba(200,60,20,0.25), rgba(184,134,11,0.25))',
-            border: '1px solid rgba(255,200,80,0.4)',
-            backdropFilter: 'blur(10px)',
-          }}>
-          <Crown size={12} className="text-gold-shine" />
-          <span className="text-gold-shine text-[10px] font-body tracking-[0.4em] uppercase font-medium">
-            Pure 24K Gold Plating on Every Sacred Element
-          </span>
-          <Crown size={12} className="text-gold-shine" />
-        </div>
-      </motion.div>
-
-      {/* Main Content */}
-      <motion.div
-        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-5 lg:px-10"
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-5 lg:px-10 pt-24 pb-4"
         style={{ opacity }}
       >
         <motion.div
@@ -128,26 +107,12 @@ export function HeroSection() {
           transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="max-w-4xl"
         >
-          {/* Label */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="inline-flex items-center gap-3 mb-6"
-          >
-            <span className="h-px w-12 bg-gold-light/60" />
-            <span className="text-gold-light text-xs font-body tracking-[0.4em] uppercase">
-              {t('hero_label')}
-            </span>
-            <span className="h-px w-12 bg-gold-light/60" />
-          </motion.div>
-
           {/* Main Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.9 }}
-            className="font-heading font-light text-white leading-[1.05] mb-6"
+            transition={{ delay: 0.5, duration: 0.9 }}
+            className="font-heading font-light text-white leading-[1.05] mb-5"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
           >
             {t('hero_title1')}
@@ -159,12 +124,26 @@ export function HeroSection() {
             <span className="font-light text-white/90">{t('hero_title3')}</span>
           </motion.h1>
 
+          {/* Label — placed under headline so it never clashes with navbar */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="inline-flex items-center gap-3 mb-5"
+          >
+            <span className="h-px w-10 bg-white/40" />
+            <span className="text-white/90 text-xs font-body font-bold tracking-[0.4em] uppercase">
+              {t('hero_label')}
+            </span>
+            <span className="h-px w-10 bg-white/40" />
+          </motion.div>
+
           {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="font-body font-light text-white/75 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
+            transition={{ delay: 1.0 }}
+            className="font-body font-light text-white/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
           >
             {t('hero_subtitle')}
           </motion.p>
@@ -173,7 +152,7 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0 }}
+            transition={{ delay: 1.15 }}
             className="flex flex-wrap items-center justify-center gap-4 mb-14"
           >
             <a href="#gallery" className="btn-gold text-sm">
@@ -197,30 +176,31 @@ export function HeroSection() {
             </a>
           </motion.div>
 
-          {/* Trust Badges */}
+          {/* Trust Badges — larger, bolder */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
-            className="flex flex-wrap items-center justify-center gap-3 md:gap-5"
+            transition={{ delay: 1.3 }}
+            className="flex flex-wrap items-center justify-center gap-3 md:gap-4"
           >
             {trustBadges.map((badge, i) => (
               <motion.div
                 key={badge.labelKey}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.3 + i * 0.1 }}
-                className="flex items-center gap-2.5 px-4 py-2.5 rounded-sm"
+                transition={{ delay: 1.4 + i * 0.08 }}
+                className="flex items-center gap-3 px-5 py-3.5 rounded-md"
                 style={{
-                  background: 'rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255,215,0,0.2)',
+                  background: 'rgba(255,255,255,0.13)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255,215,0,0.3)',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.15)',
                 }}
               >
-                <badge.icon size={14} className="text-gold-shine shrink-0" strokeWidth={1.5} />
+                <badge.icon size={20} className="text-gold-shine shrink-0" strokeWidth={1.5} />
                 <div className="text-left">
-                  <p className="text-white text-xs font-body font-medium leading-none">{t(badge.labelKey)}</p>
-                  <p className="text-gold-light/60 text-[10px] font-body leading-none mt-0.5">{t(badge.sublabelKey)}</p>
+                  <p className="text-white text-sm font-body font-semibold leading-tight">{t(badge.labelKey)}</p>
+                  <p className="text-gold-light/75 text-xs font-body leading-tight mt-0.5">{t(badge.sublabelKey)}</p>
                 </div>
               </motion.div>
             ))}

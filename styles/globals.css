@@ -16,25 +16,26 @@
   --font-playfair: 'Playfair Display', serif;
 
   /* Color tokens */
-  --color-ivory: #F8F3E8;
-  --color-ivory-50: #FDFBF7;
-  --color-sandstone: #D4C4A0;
-  --color-saffron: #FF9933;
-  --color-saffron-dark: #E8821A;
-  --color-maroon: #8B0000;
+  --color-ivory: #F8F8FB;
+  --color-ivory-50: #FAFAFA;
+  --color-sandstone: #C7D2FE;
+  --color-saffron: #F97316;
+  --color-saffron-dark: #EA580C;
+  --color-maroon: #4F46E5;
   --color-gold: #B8860B;
   --color-gold-light: #D4AF37;
   --color-gold-shine: #FFD700;
-  --color-charcoal: #2D2D2D;
+  --color-charcoal: #27272A;
 
   /* Gradients */
   --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #B8860B 50%, #FFD700 100%);
-  --gradient-saffron: linear-gradient(135deg, #FF9933 0%, #E8821A 100%);
-  --gradient-divine: linear-gradient(180deg, transparent 0%, rgba(248,243,232,0.95) 100%);
+  --gradient-saffron: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  --gradient-divine: linear-gradient(180deg, transparent 0%, rgba(250,250,250,0.97) 100%);
+  --gradient-indigo: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
 
   /* Shadows */
-  --shadow-card: 0 8px 32px rgba(45,45,45,0.08);
-  --shadow-card-hover: 0 20px 60px rgba(45,45,45,0.15);
+  --shadow-card: 0 4px 24px rgba(79,70,229,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 16px 48px rgba(79,70,229,0.14), 0 4px 12px rgba(0,0,0,0.06);
   --shadow-gold: 0 0 30px rgba(184,134,11,0.25);
 
   /* Transition */
@@ -59,7 +60,7 @@ html {
 
 body {
   font-family: var(--font-jost);
-  background-color: var(--color-ivory-50);
+  background-color: #FAFAFA;
   color: var(--color-charcoal);
   overflow-x: hidden;
   line-height: 1.6;
@@ -81,10 +82,10 @@ h1, h2, h3, h4, h5 {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-ivory);
+  background: #F4F4F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gold);
+  background: var(--color-maroon);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -95,7 +96,7 @@ h1, h2, h3, h4, h5 {
    SELECTION
    ============================================ */
 ::selection {
-  background: rgba(255, 153, 51, 0.2);
+  background: rgba(79, 70, 229, 0.15);
   color: var(--color-maroon);
 }
 
@@ -179,7 +180,7 @@ h1, h2, h3, h4, h5 {
   .card-premium {
     @apply bg-white rounded-sm overflow-hidden transition-all duration-500;
     box-shadow: var(--shadow-card);
-    border: 1px solid rgba(212, 196, 160, 0.3);
+    border: 1px solid rgba(199,210,254,0.5);
   }
   .card-premium:hover {
     box-shadow: var(--shadow-card-hover);
@@ -189,11 +190,11 @@ h1, h2, h3, h4, h5 {
   /* Glass card */
   .card-glass {
     @apply rounded-sm overflow-hidden;
-    background: rgba(253, 251, 247, 0.8);
+    background: rgba(250,250,250,0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    box-shadow: 0 8px 32px rgba(45,45,45,0.08);
+    border: 1px solid rgba(199,210,254,0.35);
+    box-shadow: 0 8px 32px rgba(79,70,229,0.07);
   }
 
   /* Gold border card */
@@ -203,7 +204,7 @@ h1, h2, h3, h4, h5 {
   .card-gold-border::before {
     content: '';
     @apply absolute inset-0 rounded-sm pointer-events-none;
-    background: linear-gradient(135deg, rgba(184,134,11,0.4), transparent 40%, transparent 60%, rgba(184,134,11,0.4));
+    background: linear-gradient(135deg, rgba(79,70,229,0.35), transparent 40%, transparent 60%, rgba(184,134,11,0.35));
     padding: 1px;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -234,14 +235,14 @@ h1, h2, h3, h4, h5 {
    TEMPLE PATTERN BACKGROUND
    ============================================ */
 .bg-temple-subtle {
-  background-color: var(--color-ivory-50);
+  background-color: #FAFAFA;
   background-image:
-    radial-gradient(circle at 25% 25%, rgba(255,153,51,0.04) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(184,134,11,0.04) 0%, transparent 50%);
+    radial-gradient(circle at 25% 25%, rgba(79,70,229,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(249,115,22,0.03) 0%, transparent 50%);
 }
 
 .bg-temple-rich {
-  background: linear-gradient(135deg, #1A0A05 0%, #2D1206 50%, #1A0A05 100%);
+  background: linear-gradient(135deg, #0D0B1E 0%, #1A1640 50%, #0D0B1E 100%);
 }
 
 /* ============================================
@@ -314,40 +315,28 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================================
-   WHATSAPP FLOATING BUTTON
+   FLOATING ACTION BUTTONS
    ============================================ */
-.whatsapp-float {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #25D366;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-  transition: var(--transition-smooth);
-  cursor: pointer;
-  text-decoration: none;
-}
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
-}
-.whatsapp-float .pulse-ring {
+.wa-pulse-ring {
   position: absolute;
-  inset: -4px;
+  inset: -5px;
   border-radius: 50%;
-  border: 2px solid rgba(37, 211, 102, 0.4);
-  animation: pulseRing 2s ease-in-out infinite;
+  border: 2px solid rgba(34, 197, 94, 0.4);
+  animation: waPulse 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+.phone-pulse-ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  animation: waPulse 2.2s ease-in-out infinite 0.5s;
+  pointer-events: none;
 }
 
-@keyframes pulseRing {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.2); opacity: 0; }
+@keyframes waPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.25); opacity: 0; }
 }
 
 /* ============================================
@@ -408,11 +397,11 @@ h1, h2, h3, h4, h5 {
   background: transparent;
 }
 .navbar-scrolled {
-  background: rgba(253, 251, 247, 0.92);
+  background: rgba(250, 250, 252, 0.93);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-  box-shadow: 0 4px 20px rgba(45,45,45,0.06);
+  border-bottom: 1px solid rgba(199,210,254,0.4);
+  box-shadow: 0 4px 24px rgba(79,70,229,0.07);
 }
 
 /* ============================================

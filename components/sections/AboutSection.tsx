@@ -61,7 +61,7 @@ export function AboutSection() {
           >
             <div className="relative aspect-[4/5] rounded-sm overflow-hidden shadow-divine">
               <Image
-                src="/images/paintings/venkateshwara-main.jpg"
+                src="/images/paintings/venkateshwara-main.webp"
                 alt="Venkateshwara — Kala Kriti Sacred Art"
                 fill
                 priority

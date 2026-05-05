@@ -21,7 +21,7 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
 
   return (
     <section id="reviews" className="py-24 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #FAF6EE 0%, #F8F3E8 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #F8F8FB 0%, #F0F0F8 100%)' }}
     >
       <div className="max-w-7xl mx-auto px-5 lg:px-10">
         <SectionHeader
@@ -32,22 +32,23 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
 
         {/* Featured Review — Large */}
         <div className="mb-12">
-          <AnimatePresence mode="wait">
+          {/* initial={false} prevents the entrance animation from firing on page load */}
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={active}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -24 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
               className="grid md:grid-cols-5 gap-0 rounded-sm overflow-hidden"
               style={{
-                boxShadow: '0 20px 60px rgba(45,45,45,0.1)',
-                border: '1px solid rgba(212,196,160,0.3)',
+                boxShadow: '0 20px 60px rgba(79,70,229,0.08)',
+                border: '1px solid rgba(199,210,254,0.25)',
               }}
             >
-              {/* Painting image */}
-              {reviews[active].paintingImage && (
-                <div className="md:col-span-2 relative min-h-[280px] md:min-h-0">
+              {/* Painting image — always reserve the column; show a gradient placeholder when no image */}
+              <div className="md:col-span-2 relative min-h-[260px] md:min-h-0">
+                {reviews[active].paintingImage ? (
                   <Image
                     src={reviews[active].paintingImage!}
                     alt={`${reviews[active].deity} painting`}
@@ -57,16 +58,24 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                     quality={80}
                     loading="lazy"
                   />
-                  <div className="absolute inset-0"
-                    style={{ background: 'linear-gradient(135deg, rgba(10,5,2,0.2), transparent)' }} />
-                  <div className="absolute bottom-4 left-4">
-                    <span className="px-2.5 py-1 text-[10px] font-body font-medium tracking-wider uppercase rounded-sm"
-                      style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', color: '#D4AF37', border: '1px solid rgba(184,134,11,0.3)' }}>
-                      {reviews[active].deity}
-                    </span>
+                ) : (
+                  <div className="absolute inset-0" style={{
+                    background: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #1E1B4B 100%)',
+                  }}>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                      <span className="font-heading italic text-white text-6xl">ॐ</span>
+                    </div>
                   </div>
+                )}
+                <div className="absolute inset-0"
+                  style={{ background: 'linear-gradient(135deg, rgba(10,5,2,0.2), transparent)' }} />
+                <div className="absolute bottom-4 left-4">
+                  <span className="px-2.5 py-1 text-[10px] font-body font-medium tracking-wider uppercase rounded-sm"
+                    style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', color: '#D4AF37', border: '1px solid rgba(184,134,11,0.3)' }}>
+                    {reviews[active].deity}
+                  </span>
                 </div>
-              )}
+              </div>
 
               {/* Review content */}
               <div className="md:col-span-3 bg-white p-8 md:p-10 flex flex-col justify-between">

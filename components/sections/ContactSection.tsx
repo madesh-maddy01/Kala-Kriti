@@ -95,7 +95,6 @@ export function ContactSection() {
               </div>
               <div>
                 <p className="text-white font-body font-medium">{t('contact_whatsapp')}</p>
-                <p className="text-green-400/70 text-xs font-body mt-0.5">{t('contact_submit_note').split('.')[0]}</p>
                 <p className="text-white/50 text-sm font-body mt-1">{siteConfig.phone}</p>
               </div>
             </motion.a>
@@ -229,7 +228,7 @@ export function ContactSection() {
                 <Send size={14} strokeWidth={1.5} />
               </motion.button>
 
-              <p className="text-center text-white/30 text-xs font-body mt-4">{t('contact_submit_note')}</p>
+              <p className="text-center text-white/30 text-xs font-body mt-4">We typically respond within a few hours.</p>
             </form>
           </motion.div>
         </div>

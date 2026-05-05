@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/config'
 import { LanguageProvider } from '@/lib/language-context'
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
-import { WhatsAppFloat } from '@/components/shared/WhatsAppFloat'
+import { FloatButtons } from '@/components/shared/FloatButtons'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -139,7 +139,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
-          <WhatsAppFloat />
+          <FloatButtons />
         </LanguageProvider>
       </body>
     </html>

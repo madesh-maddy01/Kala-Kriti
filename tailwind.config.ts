@@ -10,25 +10,25 @@ const config: Config = {
     extend: {
       colors: {
         ivory: {
-          50: '#FDFBF7',
-          100: '#FAF6EE',
-          200: '#F5EDD8',
-          DEFAULT: '#F8F3E8',
+          50: '#FAFAFA',
+          100: '#F5F5F7',
+          200: '#EBEBF0',
+          DEFAULT: '#F8F8FB',
         },
         sandstone: {
-          light: '#E8DCC8',
-          DEFAULT: '#D4C4A0',
-          dark: '#B8A882',
+          light: '#E0E7FF',
+          DEFAULT: '#C7D2FE',
+          dark: '#818CF8',
         },
         saffron: {
-          light: '#FFB347',
-          DEFAULT: '#FF9933',
-          dark: '#E8821A',
+          light: '#FDBA74',
+          DEFAULT: '#F97316',
+          dark: '#EA580C',
         },
         maroon: {
-          light: '#A52020',
-          DEFAULT: '#8B0000',
-          dark: '#5C0000',
+          light: '#818CF8',
+          DEFAULT: '#4F46E5',
+          dark: '#3730A3',
         },
         gold: {
           light: '#D4AF37',
@@ -37,9 +37,9 @@ const config: Config = {
           shine: '#FFD700',
         },
         charcoal: {
-          light: '#4A4A4A',
-          DEFAULT: '#2D2D2D',
-          dark: '#1A1A1A',
+          light: '#52525B',
+          DEFAULT: '#27272A',
+          dark: '#18181B',
         },
       },
       fontFamily: {
