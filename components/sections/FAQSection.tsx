@@ -5,21 +5,24 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
 import type { FAQ } from '@/data/faqs'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/lib/language-context'
+import { siteConfig } from '@/lib/config'
 
 interface FAQSectionProps {
   faqs: FAQ[]
 }
 
 export function FAQSection({ faqs }: FAQSectionProps) {
+  const { t } = useLanguage()
   const [openId, setOpenId] = useState<string | null>('f1')
 
   return (
     <section id="faq" className="py-24 bg-ivory-50">
       <div className="max-w-3xl mx-auto px-5 lg:px-10">
         <SectionHeader
-          label="FAQs"
-          title="Everything You Need to Know"
-          subtitle="Answers to the most common questions about ordering, process, and delivery."
+          label={t('faq_label')}
+          title={t('faq_title')}
+          subtitle={t('faq_subtitle')}
         />
 
         <div className="space-y-2">
@@ -33,6 +36,8 @@ export function FAQSection({ faqs }: FAQSectionProps) {
             >
               <FAQItem
                 faq={faq}
+                question={t(`faq_q${faq.id.replace('f', '')}`)}
+                answer={t(`faq_a${faq.id.replace('f', '')}`)}
                 isOpen={openId === faq.id}
                 onToggle={() => setOpenId(openId === faq.id ? null : faq.id)}
               />
@@ -40,7 +45,6 @@ export function FAQSection({ faqs }: FAQSectionProps) {
           ))}
         </div>
 
-        {/* Still have questions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,18 +56,18 @@ export function FAQSection({ faqs }: FAQSectionProps) {
           }}
         >
           <p className="font-heading italic text-2xl text-charcoal-dark/70 mb-2">
-            Still have questions?
+            {t('faq_still_have')}
           </p>
           <p className="font-body text-sm text-charcoal-light/60 mb-5">
-            We're just a WhatsApp message away. We respond within a few hours.
+            {t('faq_still_have_sub')}
           </p>
           <a
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP || '919876543210'}?text=${encodeURIComponent('Hello! I have a question about ordering a custom painting.')}`}
+            href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('Hello! I have a question about ordering a custom painting.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold inline-flex text-xs"
           >
-            Ask on WhatsApp
+            {t('faq_ask_whatsapp')}
           </a>
         </motion.div>
       </div>
@@ -71,7 +75,13 @@ export function FAQSection({ faqs }: FAQSectionProps) {
   )
 }
 
-function FAQItem({ faq, isOpen, onToggle }: { faq: FAQ; isOpen: boolean; onToggle: () => void }) {
+function FAQItem({ faq, question, answer, isOpen, onToggle }: {
+  faq: FAQ
+  question: string
+  answer: string
+  isOpen: boolean
+  onToggle: () => void
+}) {
   return (
     <div
       className="rounded-sm overflow-hidden transition-all duration-300"
@@ -86,7 +96,7 @@ function FAQItem({ faq, isOpen, onToggle }: { faq: FAQ; isOpen: boolean; onToggl
         className="w-full flex items-center justify-between px-6 py-5 text-left"
       >
         <span className={`font-heading text-lg transition-colors duration-300 ${isOpen ? 'text-maroon' : 'text-charcoal-dark'}`}>
-          {faq.question}
+          {question}
         </span>
         <span className={`shrink-0 ml-4 w-8 h-8 rounded-sm flex items-center justify-center transition-all duration-300 ${
           isOpen
@@ -107,7 +117,7 @@ function FAQItem({ faq, isOpen, onToggle }: { faq: FAQ; isOpen: boolean; onToggl
             className="overflow-hidden"
           >
             <p className="px-6 pb-6 font-body text-[0.9375rem] text-charcoal-light/70 leading-relaxed">
-              {faq.answer}
+              {answer}
             </p>
           </motion.div>
         )}

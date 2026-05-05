@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { Phone, Mail, MapPin, Instagram, Facebook, Youtube, MessageCircle } from 'lucide-react'
+import { Phone, Mail, Instagram, Facebook, MessageCircle, Crown } from 'lucide-react'
 import { siteConfig, getWhatsAppUrl, getPhoneUrl } from '@/lib/config'
 
 const quickLinks = [
@@ -12,20 +11,17 @@ const quickLinks = [
 ]
 
 const deities = [
-  'Lord Ganesha', 'Radha Krishna', 'Goddess Lakshmi', 'Lord Shiva',
-  'Goddess Durga', 'Lord Ram Darbar', 'Goddess Saraswati', 'Lord Hanuman',
+  'Lord Ganesha', 'Radha Krishna', 'Goddess Lakshmi', 'Lord Venkateshwara',
+  'Lord Shiva', 'Goddess Saraswati', 'Lord Ram Darbar', 'Lord Karthikeya',
 ]
 
 export function Footer() {
   return (
     <footer className="bg-temple-rich text-white/80 relative overflow-hidden">
-      {/* Sacred pattern overlay */}
       <div className="absolute inset-0 opacity-[0.04]" style={{
         backgroundImage: 'radial-gradient(circle, #B8860B 1px, transparent 1px)',
         backgroundSize: '32px 32px'
       }} />
-
-      {/* Top gold line */}
       <div className="relative h-px" style={{
         background: 'linear-gradient(90deg, transparent, #B8860B, #FFD700, #B8860B, transparent)'
       }} />
@@ -33,7 +29,7 @@ export function Footer() {
       <div className="relative max-w-7xl mx-auto px-5 lg:px-10 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-white/10">
 
-          {/* Brand Column */}
+          {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-6">
               <h2 className="font-heading text-3xl font-medium text-white">
@@ -43,10 +39,15 @@ export function Footer() {
                 Divine Handmade Art
               </p>
             </div>
-            <p className="font-body text-sm leading-relaxed text-white/60 mb-6">
-              Handcrafted devotional paintings of Hindu Gods & Goddesses, created with devotion, skill, and timeless artistry. Each painting is a sacred offering.
+            <p className="font-body text-sm leading-relaxed text-white/60 mb-4">
+              Handcrafted devotional paintings of Hindu Gods & Goddesses, adorned with pure 24K gold plating on sacred elements. Created with devotion, skill, and timeless artistry.
             </p>
-            {/* Social */}
+            {/* Gold plating note */}
+            <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-sm"
+              style={{ background: 'rgba(184,134,11,0.12)', border: '1px solid rgba(184,134,11,0.2)' }}>
+              <Crown size={11} className="text-gold-light shrink-0" />
+              <span className="text-gold-light/80 text-[10px] font-body tracking-wide uppercase">Pure 24K Gold Plating</span>
+            </div>
             <div className="flex items-center gap-4">
               {siteConfig.social.instagram && (
                 <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer"
@@ -105,15 +106,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
             <h3 className="font-heading text-lg text-white/90 mb-5 flex items-center gap-3">
               <span className="h-px w-8 bg-gold block" />
               Contact Us
             </h3>
             <div className="space-y-4">
-              <a href={getPhoneUrl()}
-                className="flex items-start gap-3 group">
+              <a href={getPhoneUrl()} className="flex items-start gap-3 group">
                 <Phone size={15} className="mt-0.5 text-gold-light shrink-0" />
                 <div>
                   <p className="text-xs text-white/40 font-body mb-0.5">Phone</p>
@@ -123,19 +123,26 @@ export function Footer() {
                 </div>
               </a>
 
-              <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer"
-                className="flex items-start gap-3 group">
-                <MessageCircle size={15} className="mt-0.5 text-gold-light shrink-0" />
+              {/* WhatsApp — click to open */}
+              <a
+                href={getWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 group"
+              >
+                <MessageCircle size={15} className="mt-0.5 text-green-400 shrink-0" />
                 <div>
                   <p className="text-xs text-white/40 font-body mb-0.5">WhatsApp</p>
                   <p className="text-sm text-white/70 group-hover:text-green-400 transition-colors font-body">
                     {siteConfig.phone}
                   </p>
+                  <p className="text-[10px] text-green-400/60 font-body mt-0.5">
+                    Click to open WhatsApp →
+                  </p>
                 </div>
               </a>
 
-              <a href={`mailto:${siteConfig.email}`}
-                className="flex items-start gap-3 group">
+              <a href={`mailto:${siteConfig.email}`} className="flex items-start gap-3 group">
                 <Mail size={15} className="mt-0.5 text-gold-light shrink-0" />
                 <div>
                   <p className="text-xs text-white/40 font-body mb-0.5">Email</p>
@@ -144,24 +151,12 @@ export function Footer() {
                   </p>
                 </div>
               </a>
-
-              <div className="flex items-start gap-3">
-                <MapPin size={15} className="mt-0.5 text-gold-light shrink-0" />
-                <div>
-                  <p className="text-xs text-white/40 font-body mb-0.5">Location</p>
-                  <p className="text-sm text-white/70 font-body">
-                    {siteConfig.location.city}, {siteConfig.location.state}
-                    <br />Pan India Delivery
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Spiritual quote */}
           <p className="font-heading italic text-lg text-gold-light/70 text-center md:text-left">
             "कलां परमां शृण्वन्तो देव-गन्धर्व-मानवाः"
           </p>
@@ -175,10 +170,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Trust note */}
         <div className="mt-8 pt-6 border-t border-white/10 text-center">
           <p className="font-body text-xs text-white/30 tracking-widest uppercase">
-            Handmade • Pan India Delivery • 100% Custom • Premium Quality • Trusted by 400+ Families
+            Handmade • Pan India Delivery • 100% Custom • Pure 24K Gold Plating • Trusted by 400+ Families
           </p>
         </div>
       </div>

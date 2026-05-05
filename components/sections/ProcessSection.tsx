@@ -1,74 +1,34 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Search, MessageSquare, Settings, CheckCircle, Brush, Clock, Truck } from 'lucide-react'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/lib/language-context'
 
-const steps = [
-  {
-    icon: Search,
-    number: '01',
-    title: 'Choose Deity',
-    desc: 'Select the deity, pose, and concept that speaks to your heart.',
-    color: 'from-saffron/20 to-transparent',
-    accent: '#FF9933',
-  },
-  {
-    icon: MessageSquare,
-    number: '02',
-    title: 'Share Requirements',
-    desc: 'Tell us your preferred size, color theme, and any special requests.',
-    color: 'from-gold/20 to-transparent',
-    accent: '#B8860B',
-  },
-  {
-    icon: Settings,
-    number: '03',
-    title: 'Discuss & Customize',
-    desc: 'We consult personally via WhatsApp to perfect every detail.',
-    color: 'from-maroon/20 to-transparent',
-    accent: '#8B0000',
-  },
-  {
-    icon: CheckCircle,
-    number: '04',
-    title: 'Confirm Order',
-    desc: 'Approve the plan and complete 50% advance to begin creation.',
-    color: 'from-saffron/20 to-transparent',
-    accent: '#FF9933',
-  },
-  {
-    icon: Brush,
-    number: '05',
-    title: 'Painting Begins',
-    desc: 'Our artist begins your sacred painting with full devotion.',
-    color: 'from-gold/20 to-transparent',
-    accent: '#B8860B',
-  },
-  {
-    icon: Clock,
-    number: '06',
-    title: '30–40 Days',
-    desc: 'Your painting is lovingly crafted with progress photos shared.',
-    color: 'from-maroon/20 to-transparent',
-    accent: '#8B0000',
-  },
-  {
-    icon: Truck,
-    number: '07',
-    title: 'Safe Delivery',
-    desc: 'Carefully packed and delivered to your doorstep across India.',
-    color: 'from-saffron/20 to-transparent',
-    accent: '#FF9933',
-  },
+const stepMeta = [
+  { icon: Search, number: '01', key: 1, color: 'from-saffron/20 to-transparent', accent: '#FF9933' },
+  { icon: MessageSquare, number: '02', key: 2, color: 'from-gold/20 to-transparent', accent: '#B8860B' },
+  { icon: Settings, number: '03', key: 3, color: 'from-maroon/20 to-transparent', accent: '#8B0000' },
+  { icon: CheckCircle, number: '04', key: 4, color: 'from-saffron/20 to-transparent', accent: '#FF9933' },
+  { icon: Brush, number: '05', key: 5, color: 'from-gold/20 to-transparent', accent: '#B8860B' },
+  { icon: Clock, number: '06', key: 6, color: 'from-maroon/20 to-transparent', accent: '#8B0000' },
+  { icon: Truck, number: '07', key: 7, color: 'from-saffron/20 to-transparent', accent: '#FF9933' },
 ]
 
 export function ProcessSection() {
+  const { t } = useLanguage()
+
+  const steps = stepMeta.map((s) => ({
+    ...s,
+    title: t(`process_step${s.key}_title`),
+    desc: t(`process_step${s.key}_desc`),
+  }))
+
   return (
     <section id="process" className="py-24 relative overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #F8F3E8 0%, #FAF6EE 50%, #F8F3E8 100%)' }}
     >
-      {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: 'radial-gradient(circle, #B8860B 1px, transparent 1px)',
         backgroundSize: '28px 28px'
@@ -76,12 +36,11 @@ export function ProcessSection() {
 
       <div className="relative max-w-7xl mx-auto px-5 lg:px-10">
         <SectionHeader
-          label="How It Works"
-          title="Your Sacred Painting Journey"
-          subtitle="From your first thought to the moment it graces your wall — a personal, devotional process."
+          label={t('process_label')}
+          title={t('process_title')}
+          subtitle={t('process_subtitle')}
         />
 
-        {/* Steps grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {steps.map((step, i) => (
             <motion.div
@@ -91,12 +50,11 @@ export function ProcessSection() {
               viewport={{ once: true, margin: '-20px' }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
             >
-              <ProcessCard step={step} index={i} />
+              <ProcessCard step={step} index={i} total={steps.length} />
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom note */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -109,10 +67,10 @@ export function ProcessSection() {
           }}
         >
           <p className="font-heading italic text-2xl text-charcoal-dark/70 mb-2">
-            Every painting takes 30–40 days because every brushstroke is intentional.
+            {t('process_note_quote')}
           </p>
           <p className="font-body text-sm text-charcoal-light/60">
-            We believe sacred art cannot be rushed. Your painting deserves the time it needs.
+            {t('process_note_sub')}
           </p>
         </motion.div>
       </div>
@@ -120,8 +78,10 @@ export function ProcessSection() {
   )
 }
 
-function ProcessCard({ step, index }: { step: typeof steps[0]; index: number }) {
-  const isLast = index === steps.length - 1
+type StepItem = { icon: React.ElementType; number: string; key: number; color: string; accent: string; title: string; desc: string }
+
+function ProcessCard({ step, index, total }: { step: StepItem; index: number; total: number }) {
+  const isLast = index === total - 1
 
   return (
     <div className="relative group">

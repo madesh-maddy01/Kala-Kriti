@@ -3,18 +3,16 @@
 import { motion } from 'framer-motion'
 import { MessageCircle, Phone, Info } from 'lucide-react'
 import { getWhatsAppUrl, getPhoneUrl, siteConfig } from '@/lib/config'
+import { useLanguage } from '@/lib/language-context'
 
-const pricingFactors = [
-  'Painting size & dimensions',
-  'Medium — oil, acrylic, or watercolor',
-  'Level of detailing & complexity',
-  'Number of deities in composition',
-  'Gold leaf or special techniques',
-  'Framing — type and material',
-  'Custom special requests',
+const factorKeys = [
+  'pricing_factor1', 'pricing_factor2', 'pricing_factor3', 'pricing_factor4',
+  'pricing_factor5', 'pricing_factor6', 'pricing_factor7',
 ]
 
 export function PricingNote() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-20 bg-ivory-50">
       <div className="max-w-4xl mx-auto px-5 lg:px-10">
@@ -29,12 +27,11 @@ export function PricingNote() {
             border: '1px solid rgba(184,134,11,0.2)',
           }}
         >
-          {/* Top bar */}
           <div className="px-8 py-4 flex items-center gap-3"
             style={{ background: 'linear-gradient(90deg, rgba(139,0,0,0.06), rgba(184,134,11,0.06))' }}>
             <Info size={16} className="text-maroon shrink-0" strokeWidth={1.5} />
             <p className="font-body text-sm font-medium text-maroon tracking-wider uppercase">
-              About Pricing
+              {t('pricing_about')}
             </p>
           </div>
 
@@ -42,11 +39,11 @@ export function PricingNote() {
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
                 <h2 className="font-heading text-3xl md:text-4xl text-charcoal-dark mb-4">
-                  Every Painting is
-                  <span className="block italic text-maroon">Priced with Transparency</span>
+                  {t('pricing_card_title')}
+                  <span className="block italic text-maroon">{t('pricing_card_italic')}</span>
                 </h2>
                 <p className="font-body text-charcoal-light/70 leading-relaxed mb-6">
-                  We don't list fixed prices because every painting is truly unique. Pricing is determined fairly based on the exact specifications of your order. We will always discuss and agree before beginning.
+                  {t('pricing_card_desc')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
@@ -56,24 +53,24 @@ export function PricingNote() {
                     className="btn-saffron text-xs"
                   >
                     <MessageCircle size={15} strokeWidth={1.5} />
-                    Get Your Quote
+                    {t('pricing_get_quote')}
                   </a>
                   <a href={getPhoneUrl()} className="btn-outline text-xs">
                     <Phone size={15} strokeWidth={1.5} />
-                    Call to Discuss
+                    {t('pricing_call_discuss_btn')}
                   </a>
                 </div>
               </div>
 
               <div>
                 <p className="font-body text-xs text-charcoal-light/50 tracking-[0.25em] uppercase mb-4">
-                  Pricing depends on
+                  {t('pricing_depends_on')}
                 </p>
                 <ul className="space-y-2.5">
-                  {pricingFactors.map((factor) => (
-                    <li key={factor} className="flex items-center gap-3 font-body text-sm text-charcoal-light/75">
+                  {factorKeys.map((key) => (
+                    <li key={key} className="flex items-center gap-3 font-body text-sm text-charcoal-light/75">
                       <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
-                      {factor}
+                      {t(key)}
                     </li>
                   ))}
                 </ul>

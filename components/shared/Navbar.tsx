@@ -3,41 +3,36 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, MessageCircle, Menu, X, ChevronDown } from 'lucide-react'
+import { Phone, MessageCircle, Menu, X } from 'lucide-react'
 import { siteConfig, getWhatsAppUrl, getPhoneUrl } from '@/lib/config'
+import { useLanguage } from '@/lib/language-context'
+import { LanguageSelector } from './LanguageSelector'
 import { cn } from '@/lib/utils'
 
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Process', href: '#process' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'About', href: '#about' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
-]
-
 export function Navbar() {
+  const { t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('')
   const navRef = useRef<HTMLElement>(null)
 
+  const navLinks = [
+    { labelKey: 'nav_home', href: '/' },
+    { labelKey: 'nav_gallery', href: '#gallery' },
+    { labelKey: 'nav_process', href: '#process' },
+    { labelKey: 'nav_reviews', href: '#reviews' },
+    { labelKey: 'nav_about', href: '#about' },
+    { labelKey: 'nav_faq', href: '#faq' },
+    { labelKey: 'nav_contact', href: '#contact' },
+  ]
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 60)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
@@ -67,8 +62,6 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-5 lg:px-10">
           <div className="flex items-center justify-between gap-4">
-
-            {/* Logo */}
             <Link href="/" className="flex-shrink-0 group">
               <div className="flex flex-col">
                 <span className={cn(
@@ -81,12 +74,11 @@ export function Navbar() {
                   'text-[9px] tracking-[0.35em] uppercase font-body transition-all duration-500',
                   scrolled ? 'text-sandstone-dark' : 'text-white/60'
                 )}>
-                  Divine Handmade Art
+                  {t('nav_tagline')}
                 </span>
               </div>
             </Link>
 
-            {/* Center Nav — Desktop */}
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <button
@@ -97,7 +89,7 @@ export function Navbar() {
                     scrolled ? 'text-charcoal hover:text-gold' : 'text-white/85 hover:text-white'
                   )}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                   <span className={cn(
                     'absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300',
                     scrolled ? 'bg-gold' : 'bg-saffron'
@@ -106,8 +98,8 @@ export function Navbar() {
               ))}
             </nav>
 
-            {/* Right CTAs */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-2">
+              <LanguageSelector scrolled={scrolled} />
               <a
                 href={getPhoneUrl()}
                 className={cn(
@@ -118,9 +110,8 @@ export function Navbar() {
                 )}
               >
                 <Phone className="w-3.5 h-3.5" strokeWidth={1.5} />
-                <span className="tracking-wide">Call Now</span>
+                <span className="tracking-wide">{t('nav_call')}</span>
               </a>
-
               <a
                 href={getWhatsAppUrl()}
                 target="_blank"
@@ -128,26 +119,27 @@ export function Navbar() {
                 className="flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-500 text-white text-sm font-body font-medium tracking-wide transition-all duration-300 rounded-sm shadow-sm hover:shadow-md"
               >
                 <MessageCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
-                <span>WhatsApp</span>
+                <span>{t('nav_whatsapp')}</span>
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className={cn(
-                'lg:hidden p-2 rounded-sm transition-colors',
-                scrolled ? 'text-charcoal-dark' : 'text-white'
-              )}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <LanguageSelector scrolled={scrolled} />
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className={cn(
+                  'p-2 rounded-sm transition-colors',
+                  scrolled ? 'text-charcoal-dark' : 'text-white'
+                )}
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -158,14 +150,11 @@ export function Navbar() {
             className="fixed inset-0 z-40 bg-ivory-50 flex flex-col lg:hidden"
             style={{ paddingTop: '80px' }}
           >
-            {/* Pattern overlay */}
             <div className="absolute inset-0 opacity-[0.03]" style={{
               backgroundImage: 'radial-gradient(circle, #B8860B 1px, transparent 1px)',
               backgroundSize: '24px 24px'
             }} />
-
             <div className="relative flex-1 overflow-y-auto px-6 py-8">
-              {/* Nav links */}
               <div className="space-y-1">
                 {navLinks.map((link, i) => (
                   <motion.button
@@ -176,13 +165,11 @@ export function Navbar() {
                     onClick={() => handleNavClick(link.href)}
                     className="w-full text-left px-4 py-4 font-heading text-2xl text-charcoal-dark hover:text-maroon transition-colors border-b border-sandstone/30 flex items-center justify-between group"
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                     <span className="text-gold opacity-0 group-hover:opacity-100 transition-opacity text-base font-body">→</span>
                   </motion.button>
                 ))}
               </div>
-
-              {/* CTAs */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -197,7 +184,7 @@ export function Navbar() {
                   onClick={() => setMobileOpen(false)}
                 >
                   <MessageCircle size={18} />
-                  WhatsApp for Custom Order
+                  {t('nav_whatsapp_order')}
                 </a>
                 <a
                   href={getPhoneUrl()}
@@ -208,8 +195,6 @@ export function Navbar() {
                   {siteConfig.phone}
                 </a>
               </motion.div>
-
-              {/* Brand tagline */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

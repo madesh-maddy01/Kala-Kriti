@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Jost, Playfair_Display } from 'next/font/google'
 import '@/styles/globals.css'
 import { siteConfig } from '@/lib/config'
+import { LanguageProvider } from '@/lib/language-context'
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { WhatsAppFloat } from '@/components/shared/WhatsAppFloat'
@@ -105,12 +106,7 @@ const schemaOrg = {
   url: 'https://kalakriti.in',
   telephone: siteConfig.phone,
   email: siteConfig.email,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: siteConfig.location.city,
-    addressRegion: siteConfig.location.state,
-    addressCountry: siteConfig.location.country,
-  },
+  areaServed: 'India',
   priceRange: '₹₹₹',
   servesCuisine: 'Hindu Devotional Art',
   openingHours: 'Mo-Su 09:00-21:00',
@@ -139,10 +135,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="font-body antialiased bg-ivory-50 overflow-x-hidden">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </LanguageProvider>
       </body>
     </html>
   )

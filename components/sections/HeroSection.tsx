@@ -1,65 +1,70 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { MessageCircle, Phone, ChevronDown, Sparkles, Package, Maximize2, Frame } from 'lucide-react'
+import { MessageCircle, Phone, ChevronDown, Sparkles, Package, Crown, Gem } from 'lucide-react'
 import { getWhatsAppUrl, getPhoneUrl } from '@/lib/config'
+import { useLanguage } from '@/lib/language-context'
 
-const particles = Array.from({ length: 20 }, (_, i) => ({
+const particles = Array.from({ length: 24 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   y: Math.random() * 100,
-  size: Math.random() * 4 + 2,
-  duration: Math.random() * 6 + 6,
-  delay: Math.random() * 4,
-  opacity: Math.random() * 0.5 + 0.2,
+  size: Math.random() * 5 + 2,
+  duration: Math.random() * 7 + 6,
+  delay: Math.random() * 5,
+  opacity: Math.random() * 0.6 + 0.2,
 }))
 
-const trustBadges = [
-  { icon: Sparkles, label: 'Handmade', sublabel: 'with devotion' },
-  { icon: Package, label: 'Pan India', sublabel: 'Delivery' },
-  { icon: Maximize2, label: 'Custom Sizes', sublabel: 'any dimension' },
-  { icon: Frame, label: 'Premium', sublabel: 'Framing' },
-]
-
 export function HeroSection() {
+  const { t } = useLanguage()
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 600], [0, 180])
   const opacity = useTransform(scrollY, [0, 400], [1, 0])
   const scale = useTransform(scrollY, [0, 600], [1, 1.1])
 
+  const trustBadges = [
+    { icon: Sparkles, labelKey: 'hero_badge_handmade', sublabelKey: 'hero_badge_handmade_sub' },
+    { icon: Package, labelKey: 'hero_badge_delivery', sublabelKey: 'hero_badge_delivery_sub' },
+    { icon: Crown, labelKey: 'hero_badge_gold', sublabelKey: 'hero_badge_gold_sub' },
+    { icon: Gem, labelKey: 'hero_badge_sizes', sublabelKey: 'hero_badge_sizes_sub' },
+  ]
+
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen flex flex-col overflow-hidden"
-    >
-      {/* Background Image with Parallax */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{ y, scale }}
-      >
+    <section ref={containerRef} className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* Background with Parallax */}
+      <motion.div className="absolute inset-0 z-0" style={{ y, scale }}>
         <Image
-          src="/images/hero_img.jpg"
-          alt="Divine Devotional Painting — Kala Kriti"
+          src="/images/hero-image.jpg"
+          alt="Radha Krishna — Kala Kriti"
           fill
           priority
           quality={90}
-          className="object-cover object-center"
+          className="object-cover object-top"
           sizes="100vw"
         />
       </motion.div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 z-1 hero-gradient-overlay" />
-
-      {/* Deep maroon vignette */}
+      {/* Rich dark gradient overlay — lighter at top (naturally dark), deeper at center for text readability */}
       <div className="absolute inset-0 z-1" style={{
-        background: 'radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(10,5,2,0.4) 100%)'
+        background: 'linear-gradient(180deg, rgba(5,2,1,0.38) 0%, rgba(5,2,1,0.55) 45%, rgba(5,2,1,0.78) 100%)'
       }} />
 
-      {/* Sacred Particles */}
+      {/* Radial vignette — edges dark, center open to let the image breathe */}
+      <div className="absolute inset-0 z-1" style={{
+        background: 'radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(5,2,1,0.45) 100%)'
+      }} />
+
+      {/* Warm shimmer rays — gold & crimson to echo costume tones */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[70%] z-1 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          background: 'conic-gradient(from 270deg at 50% 0%, transparent 0deg, rgba(255,215,0,0.05) 15deg, transparent 30deg, rgba(220,60,30,0.04) 50deg, transparent 70deg)',
+        }} />
+      </div>
+
+      {/* Gold dust particles */}
       <div className="absolute inset-0 z-2 pointer-events-none overflow-hidden">
         {particles.map((p) => (
           <motion.div
@@ -70,12 +75,16 @@ export function HeroSection() {
               top: `${p.y}%`,
               width: p.size,
               height: p.size,
-              background: `radial-gradient(circle, rgba(255,215,0,${p.opacity}), rgba(255,153,51,${p.opacity * 0.5}))`,
+              background: p.id % 3 === 0
+                ? `radial-gradient(circle, rgba(255,215,0,${p.opacity}), rgba(255,153,51,${p.opacity * 0.4}))`
+                : p.id % 3 === 1
+                  ? `radial-gradient(circle, rgba(220,180,80,${p.opacity}), rgba(180,100,20,${p.opacity * 0.3}))`
+                  : `radial-gradient(circle, rgba(80,200,180,${p.opacity * 0.6}), rgba(0,150,130,${p.opacity * 0.2}))`,
             }}
             animate={{
-              y: [0, -40, 0],
-              opacity: [p.opacity * 0.4, p.opacity, p.opacity * 0.4],
-              scale: [0.8, 1.2, 0.8],
+              y: [0, -50, 0],
+              opacity: [p.opacity * 0.3, p.opacity, p.opacity * 0.3],
+              scale: [0.7, 1.3, 0.7],
             }}
             transition={{
               duration: p.duration,
@@ -87,14 +96,28 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Light rays */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[60%] z-1 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          background: 'conic-gradient(from 270deg at 50% 0%, transparent 0deg, rgba(255,215,0,0.03) 15deg, transparent 30deg, rgba(255,153,51,0.04) 45deg, transparent 60deg)',
-        }} />
-      </div>
+      {/* Gold plating shimmer banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.6 }}
+        className="absolute top-24 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+      >
+        <div className="flex items-center gap-3 px-5 py-2 rounded-full"
+          style={{
+            background: 'linear-gradient(135deg, rgba(200,60,20,0.25), rgba(184,134,11,0.25))',
+            border: '1px solid rgba(255,200,80,0.4)',
+            backdropFilter: 'blur(10px)',
+          }}>
+          <Crown size={12} className="text-gold-shine" />
+          <span className="text-gold-shine text-[10px] font-body tracking-[0.4em] uppercase font-medium">
+            Pure 24K Gold Plating on Every Sacred Element
+          </span>
+          <Crown size={12} className="text-gold-shine" />
+        </div>
+      </motion.div>
 
-      {/* Content */}
+      {/* Main Content */}
       <motion.div
         className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-5 lg:px-10"
         style={{ opacity }}
@@ -114,7 +137,7 @@ export function HeroSection() {
           >
             <span className="h-px w-12 bg-gold-light/60" />
             <span className="text-gold-light text-xs font-body tracking-[0.4em] uppercase">
-              Sacred Handmade Art
+              {t('hero_label')}
             </span>
             <span className="h-px w-12 bg-gold-light/60" />
           </motion.div>
@@ -127,13 +150,13 @@ export function HeroSection() {
             className="font-heading font-light text-white leading-[1.05] mb-6"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
           >
-            Handmade Divine Paintings
+            {t('hero_title1')}
             <br />
-            <span className="font-medium italic text-gold-light" style={{ textShadow: '0 0 40px rgba(212,175,55,0.4)' }}>
-              Crafted for Your Home
+            <span className="font-medium italic text-gold-light" style={{ textShadow: '0 0 40px rgba(212,175,55,0.5)' }}>
+              {t('hero_title2')}
             </span>
             <br />
-            <span className="font-light text-white/90">& Heart</span>
+            <span className="font-light text-white/90">{t('hero_title3')}</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -143,8 +166,7 @@ export function HeroSection() {
             transition={{ delay: 0.8 }}
             className="font-body font-light text-white/75 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
           >
-            Custom paintings of Hindu Gods & Goddesses created with devotion,
-            detail, and timeless artistry. Every painting is a sacred offering.
+            {t('hero_subtitle')}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -155,7 +177,7 @@ export function HeroSection() {
             className="flex flex-wrap items-center justify-center gap-4 mb-14"
           >
             <a href="#gallery" className="btn-gold text-sm">
-              View Gallery
+              {t('hero_cta_gallery')}
             </a>
             <a
               href={getWhatsAppUrl()}
@@ -164,14 +186,14 @@ export function HeroSection() {
               className="flex items-center gap-2.5 px-8 py-3.5 bg-green-600/90 hover:bg-green-500 text-white font-body font-medium text-sm tracking-wider uppercase transition-all duration-300 rounded-sm hover:shadow-lg hover:-translate-y-0.5"
             >
               <MessageCircle size={16} strokeWidth={1.5} />
-              WhatsApp for Custom Order
+              {t('hero_cta_whatsapp')}
             </a>
             <a
               href={getPhoneUrl()}
               className="flex items-center gap-2.5 px-8 py-3.5 border border-white/30 hover:border-white/70 text-white font-body font-medium text-sm tracking-wider uppercase transition-all duration-300 rounded-sm hover:-translate-y-0.5"
             >
               <Phone size={16} strokeWidth={1.5} />
-              Call Now
+              {t('hero_cta_call')}
             </a>
           </motion.div>
 
@@ -180,25 +202,25 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
-            className="flex flex-wrap items-center justify-center gap-3 md:gap-6"
+            className="flex flex-wrap items-center justify-center gap-3 md:gap-5"
           >
             {trustBadges.map((badge, i) => (
               <motion.div
-                key={badge.label}
+                key={badge.labelKey}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.3 + i * 0.1 }}
                 className="flex items-center gap-2.5 px-4 py-2.5 rounded-sm"
                 style={{
                   background: 'rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255,255,255,0.15)',
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255,215,0,0.2)',
                 }}
               >
-                <badge.icon size={14} className="text-gold-light shrink-0" strokeWidth={1.5} />
+                <badge.icon size={14} className="text-gold-shine shrink-0" strokeWidth={1.5} />
                 <div className="text-left">
-                  <p className="text-white text-xs font-body font-medium leading-none">{badge.label}</p>
-                  <p className="text-white/50 text-[10px] font-body leading-none mt-0.5">{badge.sublabel}</p>
+                  <p className="text-white text-xs font-body font-medium leading-none">{t(badge.labelKey)}</p>
+                  <p className="text-gold-light/60 text-[10px] font-body leading-none mt-0.5">{t(badge.sublabelKey)}</p>
                 </div>
               </motion.div>
             ))}
@@ -222,7 +244,7 @@ export function HeroSection() {
             if (gallery) gallery.scrollIntoView({ behavior: 'smooth' })
           }}
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase font-body">Scroll</span>
+          <span className="text-[10px] tracking-[0.3em] uppercase font-body">{t('hero_scroll')}</span>
           <ChevronDown size={18} />
         </motion.div>
       </motion.div>

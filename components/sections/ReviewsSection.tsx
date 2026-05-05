@@ -6,12 +6,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Review } from '@/data/reviews'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/lib/language-context'
 
 interface ReviewsSectionProps {
   reviews: Review[]
 }
 
 export function ReviewsSection({ reviews }: ReviewsSectionProps) {
+  const { t } = useLanguage()
   const [active, setActive] = useState(0)
 
   const prev = () => setActive((a) => (a - 1 + reviews.length) % reviews.length)
@@ -23,9 +25,9 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
     >
       <div className="max-w-7xl mx-auto px-5 lg:px-10">
         <SectionHeader
-          label="Client Stories"
-          title="What Our Families Say"
-          subtitle="Hundreds of homes across India have been blessed with Kala Kriti paintings. Here are a few stories."
+          label={t('reviews_label')}
+          title={t('reviews_title')}
+          subtitle={t('reviews_subtitle')}
         />
 
         {/* Featured Review — Large */}
@@ -51,7 +53,9 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                     alt={`${reviews[active].deity} painting`}
                     fill
                     className="object-cover"
-                    sizes="40vw"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    quality={80}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0"
                     style={{ background: 'linear-gradient(135deg, rgba(10,5,2,0.2), transparent)' }} />
@@ -71,14 +75,14 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   <div className="flex items-center gap-1 mb-6">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
-                        key={i}
+                        key={`featured-star-${i}`}
                         size={16}
                         className={i < reviews[active].rating ? 'text-saffron fill-saffron' : 'text-sandstone'}
                         strokeWidth={1}
                       />
                     ))}
                     {reviews[active].verified && (
-                      <span className="ml-3 text-[10px] font-body text-green-600 tracking-wider">✓ Verified</span>
+                      <span className="ml-3 text-[10px] font-body text-green-600 tracking-wider">✓ {t('reviews_verified')}</span>
                     )}
                   </div>
 
@@ -117,9 +121,9 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
               <ChevronLeft size={18} />
             </button>
             <div className="flex items-center gap-2">
-              {reviews.map((_, i) => (
+              {reviews.map((review, i) => (
                 <button
-                  key={i}
+                  key={review.id}
                   onClick={() => setActive(i)}
                   className="transition-all duration-300 rounded-full"
                   style={{
@@ -151,7 +155,7 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
             >
               <div className="flex items-center gap-1 mb-3">
                 {Array.from({ length: review.rating }).map((_, i) => (
-                  <Star key={i} size={13} className="text-saffron fill-saffron" strokeWidth={1} />
+                  <Star key={`${review.id}-star-${i}`} size={13} className="text-saffron fill-saffron" strokeWidth={1} />
                 ))}
               </div>
               <p className="font-body text-sm text-charcoal-light/70 leading-relaxed line-clamp-3 mb-4">

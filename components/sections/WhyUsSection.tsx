@@ -1,53 +1,32 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Palette, Star, Gem, MapPin, Shield, Users, MessageCircle } from 'lucide-react'
+import { Heart, Palette, Star, Gem, Crown, Shield, Users, MessageCircle } from 'lucide-react'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/lib/language-context'
 
-const features = [
-  {
-    icon: Heart,
-    title: 'Handmade with Devotion',
-    desc: 'Every painting is created by a dedicated artist who approaches each brushstroke as an act of worship.',
-  },
-  {
-    icon: Palette,
-    title: '100% Custom Artwork',
-    desc: 'No prints, no reproductions. Every piece is an original, made exclusively for you.',
-  },
-  {
-    icon: Gem,
-    title: 'Premium Materials',
-    desc: 'We use archival-quality canvas, professional-grade paints, and fine brushes that ensure lasting vibrancy.',
-  },
-  {
-    icon: Star,
-    title: 'Sacred Artistic Detailing',
-    desc: 'Intricate details — gold leaf, delicate ornaments, divine expressions — are our hallmark of quality.',
-  },
-  {
-    icon: MapPin,
-    title: 'Pan India Delivery',
-    desc: 'We safely deliver to every corner of India, securely packed to protect your precious painting.',
-  },
-  {
-    icon: Shield,
-    title: 'Secure Advance Booking',
-    desc: 'Transparent process — 50% advance, progress updates, and complete satisfaction before dispatch.',
-  },
-  {
-    icon: Users,
-    title: 'Trusted by 400+ Families',
-    desc: 'Hundreds of homes across India have been blessed with Kala Kriti paintings. Read their stories.',
-  },
-  {
-    icon: MessageCircle,
-    title: 'Personal Consultation',
-    desc: 'We speak with you directly on WhatsApp to understand your vision and bring it to perfect life.',
-  },
+const featureMeta = [
+  { icon: Heart, key: 1 },
+  { icon: Palette, key: 2 },
+  { icon: Gem, key: 3 },
+  { icon: Crown, key: 4 },
+  { icon: Star, key: 5 },
+  { icon: Shield, key: 6 },
+  { icon: Star, key: 7 },
+  { icon: Users, key: 8 },
+  { icon: MessageCircle, key: 9 },
 ]
 
 export function WhyUsSection() {
+  const { t } = useLanguage()
+
+  const features = featureMeta.map((f) => ({
+    icon: f.icon,
+    title: t(`whyus_f${f.key}_title`),
+    desc: t(`whyus_f${f.key}_desc`),
+  }))
+
   return (
     <section className="py-24 bg-temple-rich relative overflow-hidden">
       {/* Sacred pattern */}
@@ -65,9 +44,9 @@ export function WhyUsSection() {
       <div className="relative max-w-7xl mx-auto px-5 lg:px-10">
         <SectionHeader
           dark
-          label="Why Kala Kriti"
-          title="Art That Holds the Divine"
-          subtitle="What makes a Kala Kriti painting different from anything you can find elsewhere."
+          label={t('whyus_label')}
+          title={t('whyus_title')}
+          subtitle={t('whyus_subtitle')}
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -88,7 +67,9 @@ export function WhyUsSection() {
   )
 }
 
-function FeatureCard({ feature }: { feature: typeof features[0] }) {
+type FeatureItem = { icon: React.ElementType; title: string; desc: string }
+
+function FeatureCard({ feature }: { feature: FeatureItem }) {
   return (
     <motion.div
       className="group p-6 rounded-sm h-full transition-all duration-500"
