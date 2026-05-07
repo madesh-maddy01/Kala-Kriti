@@ -91,7 +91,7 @@ export function HeroSection() {
     <section ref={containerRef} className="relative min-h-[100svh] flex flex-col overflow-hidden">
 
       {/* Background with parallax */}
-      <motion.div className="absolute inset-0 z-0 hero-parallax" style={{ y, scale }}>
+      <motion.div className="absolute inset-0 z-0 hero-parallax" style={{ y, scale, willChange: 'transform' }}>
         <Image
           src="/images/hero-image.webp"
           alt="Radha Krishna — Kala Kriti"

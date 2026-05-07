@@ -134,6 +134,10 @@ export default function RootLayout({
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload LCP image — hero visible immediately above fold */}
+        <link rel="preload" as="image" href="/images/hero-image.webp" fetchPriority="high" />
+        {/* Preload logo for instant navbar render */}
+        <link rel="preload" as="image" href="/main_logo.webp" />
       </head>
       <body className="font-body antialiased bg-ivory-50 overflow-x-hidden">
         <LanguageProvider>

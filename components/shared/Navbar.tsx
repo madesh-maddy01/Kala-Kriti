@@ -65,7 +65,7 @@ export function Navbar() {
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="flex-shrink-0 group">
               <Image
-                src="/main_logo.png"
+                src="/main_logo.webp"
                 alt="Kala Kriti"
                 width={160}
                 height={52}

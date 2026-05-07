@@ -36,7 +36,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <div className="mb-6">
               <Image
-                src="/main_logo.png"
+                src="/main_logo.webp"
                 alt="Kala Kriti"
                 width={160}
                 height={52}

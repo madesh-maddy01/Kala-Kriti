@@ -121,15 +121,14 @@ export function GallerySection({ paintings }: GallerySectionProps) {
 
         {/* Gallery Grid */}
         <div className="gallery-masonry">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="sync">
             {visiblePaintings.map((painting, i) => (
               <motion.div
                 key={painting.id}
-                layout
-                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                initial={{ opacity: 0, y: 16, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.35) }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, delay: Math.min(i * 0.035, 0.28) }}
                 className="gallery-item"
               >
                 <PaintingCard
@@ -221,8 +220,8 @@ function PaintingCard({ painting, onClick, index, t }: { painting: Painting; onC
           src={painting.image}
           alt={painting.name}
           fill
-          className="object-cover transition-all duration-700 group-hover:scale-110"
-          style={{ transitionTimingFunction: 'cubic-bezier(0.25,0.46,0.45,0.94)' }}
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          style={{ transitionTimingFunction: 'cubic-bezier(0.25,0.46,0.45,0.94)', willChange: 'transform' }}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 384px, 320px"
           priority={index < 4}
           loading={index < 4 ? 'eager' : 'lazy'}
@@ -324,7 +323,7 @@ function LightboxModal({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
       className="fixed inset-0 z-[100] flex items-center justify-center"
-      style={{ background: 'rgba(5,2,1,0.96)', backdropFilter: 'blur(20px)' }}
+      style={{ background: 'rgba(5,2,1,0.97)' }}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* Close button */}

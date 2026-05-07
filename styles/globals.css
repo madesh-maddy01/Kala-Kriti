@@ -451,6 +451,11 @@ h1, h2, h3, h4, h5 {
   );
 }
 
+.hero-parallax {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 /* ============================================
    PROCESS TIMELINE
    ============================================ */
@@ -488,7 +493,7 @@ h1, h2, h3, h4, h5 {
    MOBILE — layout, performance, touch targets
    ============================================ */
 @media (max-width: 768px) {
-  /* Disable parallax */
+  /* Disable parallax — free the GPU on mobile */
   .hero-parallax {
     transform: none !important;
     will-change: auto !important;
@@ -501,8 +506,7 @@ h1, h2, h3, h4, h5 {
 
   /* Reduce all backdrop-filter costs */
   .card-glass,
-  .navbar-scrolled,
-  [style*="backdrop-filter"] {
+  .navbar-scrolled {
     backdrop-filter: blur(6px) !important;
     -webkit-backdrop-filter: blur(6px) !important;
   }
@@ -531,5 +535,15 @@ h1, h2, h3, h4, h5 {
   }
   .gallery-masonry .gallery-item {
     margin-bottom: 0.75rem;
+  }
+
+  /* Promote animated cards to their own layer */
+  .card-premium {
+    transform: translateZ(0);
+  }
+
+  /* Reduce swiper transition cost on low-end devices */
+  .swiper-wrapper {
+    will-change: transform;
   }
 }
