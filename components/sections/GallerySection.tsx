@@ -22,7 +22,7 @@ export function GallerySection({ paintings }: GallerySectionProps) {
   const [lightboxIdx, setLightboxIdx] = useState(0)
   const [viewMode, setViewMode] = useState<'grid' | 'masonry'>('masonry')
 
-  const [visibleCount, setVisibleCount] = useState(12)
+  const [visibleCount, setVisibleCount] = useState(8)
 
   const filtered = useMemo(() =>
     activeCategory === 'All' ? paintings : paintings.filter(p => p.category === activeCategory),
@@ -73,8 +73,8 @@ export function GallerySection({ paintings }: GallerySectionProps) {
   const getCategoryLabel = (cat: string) => cat === 'All' ? t('gallery_filter_all') : cat
 
   return (
-    <section id="gallery" className="py-24 bg-ivory-50">
-      <div className="max-w-7xl mx-auto px-5 lg:px-10">
+    <section id="gallery" className="py-16 sm:py-24 bg-ivory-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
         <SectionHeader
           label={t('gallery_label')}
           title={t('gallery_title')}
@@ -122,7 +122,7 @@ export function GallerySection({ paintings }: GallerySectionProps) {
         </div>
 
         {/* Gallery Grid */}
-        <motion.div layout className="gallery-masonry">
+        <div className="gallery-masonry">
           <AnimatePresence mode="popLayout">
             {visiblePaintings.map((painting, i) => (
               <motion.div
@@ -143,7 +143,7 @@ export function GallerySection({ paintings }: GallerySectionProps) {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {/* Load More */}
         {hasMore && (

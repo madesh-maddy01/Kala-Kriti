@@ -7,10 +7,10 @@ export const siteConfig = {
   phone: '+91 77609 61602',
   phoneRaw: '917760961602',
   whatsapp: '917760961602',
-  email: 'kalakriti@gmail.com',
+  email: 'kalakriti.official.in@gmail.com',
 
   social: {
-    instagram: 'https://instagram.com/kalakriti',
+    instagram: 'https://www.instagram.com/kalakriti_in?igsh=dHRqMzF3MzlxbHd1&utm_source=qr',
     facebook: 'https://facebook.com/kalakriti',
     youtube: '',
     twitter: '',

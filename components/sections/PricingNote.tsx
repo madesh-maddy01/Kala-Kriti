@@ -14,8 +14,8 @@ export function PricingNote() {
   const { t } = useLanguage()
 
   return (
-    <section className="py-20 bg-ivory-50">
-      <div className="max-w-4xl mx-auto px-5 lg:px-10">
+    <section className="py-14 sm:py-20 bg-ivory-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-5 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,7 +35,7 @@ export function PricingNote() {
             </p>
           </div>
 
-          <div className="p-8 md:p-10">
+          <div className="p-5 sm:p-8 md:p-10">
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
                 <h2 className="font-heading text-3xl md:text-4xl text-charcoal-dark mb-4">

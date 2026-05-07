@@ -17,8 +17,8 @@ export function FAQSection({ faqs }: FAQSectionProps) {
   const [openId, setOpenId] = useState<string | null>('f1')
 
   return (
-    <section id="faq" className="py-24 bg-ivory-50">
-      <div className="max-w-3xl mx-auto px-5 lg:px-10">
+    <section id="faq" className="py-16 sm:py-24 bg-ivory-50">
+      <div className="max-w-3xl mx-auto px-4 sm:px-5 lg:px-10">
         <SectionHeader
           label={t('faq_label')}
           title={t('faq_title')}

@@ -20,10 +20,10 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
   const next = () => setActive((a) => (a + 1) % reviews.length)
 
   return (
-    <section id="reviews" className="py-24 overflow-hidden"
+    <section id="reviews" className="py-16 sm:py-24 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #F8F8FB 0%, #F0F0F8 100%)' }}
     >
-      <div className="max-w-7xl mx-auto px-5 lg:px-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
         <SectionHeader
           label={t('reviews_label')}
           title={t('reviews_title')}
@@ -46,8 +46,8 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                 border: '1px solid rgba(199,210,254,0.25)',
               }}
             >
-              {/* Painting image — always reserve the column; show a gradient placeholder when no image */}
-              <div className="md:col-span-2 relative min-h-[260px] md:min-h-0">
+              {/* Painting image */}
+              <div className="md:col-span-2 relative min-h-[200px] sm:min-h-[260px] md:min-h-0">
                 {reviews[active].paintingImage ? (
                   <Image
                     src={reviews[active].paintingImage!}
@@ -78,7 +78,7 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
               </div>
 
               {/* Review content */}
-              <div className="md:col-span-3 bg-white p-8 md:p-10 flex flex-col justify-between">
+              <div className="md:col-span-3 bg-white p-5 sm:p-8 md:p-10 flex flex-col justify-between">
                 <div>
                   {/* Stars */}
                   <div className="flex items-center gap-1 mb-6">
@@ -98,7 +98,7 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   {/* Quote icon */}
                   <Quote size={36} className="text-gold/20 mb-4" strokeWidth={1} />
 
-                  <blockquote className="font-heading italic text-xl md:text-2xl text-charcoal-dark/80 leading-relaxed mb-6"
+                  <blockquote className="font-heading italic text-lg sm:text-xl md:text-2xl text-charcoal-dark/80 leading-relaxed mb-6"
                     style={{ lineHeight: 1.45 }}>
                     "{reviews[active].review}"
                   </blockquote>

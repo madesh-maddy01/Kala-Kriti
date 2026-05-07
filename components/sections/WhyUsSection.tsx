@@ -28,17 +28,17 @@ export function WhyUsSection() {
   }))
 
   return (
-    <section className="py-24 bg-temple-rich relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-temple-rich relative overflow-hidden">
       {/* Sacred pattern */}
       <div className="absolute inset-0 opacity-[0.05]" style={{
         backgroundImage: 'repeating-linear-gradient(45deg, #B8860B 0, #B8860B 1px, transparent 0, transparent 50%)',
         backgroundSize: '24px 24px'
       }} />
 
-      {/* Glow orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl"
+      {/* Glow orbs — hidden on mobile (GPU-intensive) */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl hidden md:block"
         style={{ background: 'radial-gradient(circle, #FF9933, transparent)' }} />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl"
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl hidden md:block"
         style={{ background: 'radial-gradient(circle, #B8860B, transparent)' }} />
 
       <div className="relative max-w-7xl mx-auto px-5 lg:px-10">

@@ -9,6 +9,11 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  experimental: {
+    // Tree-shake large icon / animation packages — only the used exports are bundled
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig

@@ -26,7 +26,7 @@ export function ProcessSection() {
   }))
 
   return (
-    <section id="process" className="py-24 relative overflow-hidden"
+    <section id="process" className="py-16 sm:py-24 relative overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #F8F3E8 0%, #FAF6EE 50%, #F8F3E8 100%)' }}
     >
       <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -34,7 +34,7 @@ export function ProcessSection() {
         backgroundSize: '28px 28px'
       }} />
 
-      <div className="relative max-w-7xl mx-auto px-5 lg:px-10">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
         <SectionHeader
           label={t('process_label')}
           title={t('process_title')}

@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================
-   PREMIUM FONT IMPORTS
-   ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+/* Fonts are loaded via next/font/google in layout.tsx (self-hosted, non-blocking) */
 
 /* ============================================
    CSS CUSTOM PROPERTIES
@@ -430,20 +427,72 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================================
-   MOBILE RESPONSIVE OVERRIDES
-   ============================================ */
-@media (max-width: 768px) {
-  .heading-display {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-  .btn-gold, .btn-saffron, .btn-outline {
-    @apply px-6 py-3 text-xs;
-  }
-}
-
-/* ============================================
    PRINT
    ============================================ */
 @media print {
   .whatsapp-float, .navbar { display: none !important; }
+}
+
+/* ============================================
+   REDUCED MOTION — accessibility + mobile perf
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   MOBILE — layout, performance, touch targets
+   ============================================ */
+@media (max-width: 768px) {
+  /* Disable parallax */
+  .hero-parallax {
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Prevent any element from overflowing the viewport */
+  section {
+    overflow-x: hidden;
+  }
+
+  /* Reduce all backdrop-filter costs */
+  .card-glass,
+  .navbar-scrolled,
+  [style*="backdrop-filter"] {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+
+  /* Comfortable touch target size */
+  .btn-gold, .btn-saffron, .btn-outline {
+    @apply px-5 py-3 text-xs min-h-[44px];
+  }
+
+  /* Trust badge sublabel hidden on mobile — saved in HeroSection JSX too */
+  .hero-badge-sublabel { display: none; }
+
+  /* Heading scale */
+  .heading-display {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+
+  /* FAQ question text */
+  .accordion-trigger {
+    @apply text-lg;
+  }
+
+  /* Gallery masonry single column already via CSS columns */
+  .gallery-masonry {
+    column-gap: 0.75rem;
+  }
+  .gallery-masonry .gallery-item {
+    margin-bottom: 0.75rem;
+  }
 }

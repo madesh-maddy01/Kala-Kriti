@@ -47,9 +47,9 @@ export function AboutSection() {
   ]
 
   return (
-    <section id="about" className="py-24 bg-ivory-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section id="about" className="py-16 sm:py-24 bg-ivory-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Image Column */}
           <motion.div
@@ -57,7 +57,7 @@ export function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="relative pb-4 md:pb-0"
           >
             <div className="relative aspect-[4/5] rounded-sm overflow-hidden shadow-divine">
               <Image
@@ -89,27 +89,27 @@ export function AboutSection() {
               </div>
             </div>
 
-            {/* Floating stat card */}
+            {/* Floating stat card — positioned inside on mobile, absolute on md+ */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="absolute -bottom-6 -right-4 md:-right-8 p-6 rounded-sm shadow-divine"
+              className="md:absolute md:-bottom-6 md:-right-8 mt-3 md:mt-0 p-5 md:p-6 rounded-sm shadow-divine"
               style={{
                 background: 'linear-gradient(135deg, #1A0A05, #2D1206)',
                 border: '1px solid rgba(184,134,11,0.35)',
-                minWidth: '180px'
+                minWidth: '160px',
               }}
             >
-              <p className="font-heading text-5xl text-gold-light font-light mb-1">10<span className="text-2xl">+</span></p>
+              <p className="font-heading text-4xl md:text-5xl text-gold-light font-light mb-1">10<span className="text-xl md:text-2xl">+</span></p>
               <p className="font-body text-xs text-white/60 tracking-wider uppercase">{t('about_years')}</p>
               <div className="mt-3 h-px w-full" style={{ background: 'linear-gradient(90deg, #B8860B, transparent)' }} />
             </motion.div>
 
-            {/* Corner accents */}
-            <div className="absolute -top-3 -left-3 w-24 h-24 border-t-2 border-l-2 border-gold/40 pointer-events-none" />
-            <div className="absolute -bottom-3 -right-3 w-24 h-24 border-b-2 border-r-2 border-gold/40 pointer-events-none" />
+            {/* Corner accents — hidden on mobile to prevent overflow */}
+            <div className="absolute -top-3 -left-3 w-16 md:w-24 h-16 md:h-24 border-t-2 border-l-2 border-gold/40 pointer-events-none hidden sm:block" />
+            <div className="absolute -bottom-3 -right-3 w-16 md:w-24 h-16 md:h-24 border-b-2 border-r-2 border-gold/40 pointer-events-none hidden sm:block" />
           </motion.div>
 
           {/* Content Column */}
@@ -160,12 +160,12 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.7 }}
-          className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-px rounded-sm overflow-hidden"
+          className="mt-12 sm:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-px rounded-sm overflow-hidden"
           style={{ background: 'rgba(184,134,11,0.15)' }}
         >
           {stats.map((stat) => (
-            <div key={stat.labelKey} className="bg-ivory-50 p-8 text-center group hover:bg-ivory-100 transition-colors duration-300">
-              <p className="font-heading text-5xl md:text-6xl font-light text-maroon mb-2">
+            <div key={stat.labelKey} className="bg-ivory-50 p-4 sm:p-8 text-center group hover:bg-ivory-100 transition-colors duration-300">
+              <p className="font-heading text-4xl sm:text-5xl md:text-6xl font-light text-maroon mb-2">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </p>
               <p className="font-body font-medium text-sm text-charcoal-dark mb-1">{t(stat.labelKey)}</p>

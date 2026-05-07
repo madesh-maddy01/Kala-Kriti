@@ -30,6 +30,7 @@ const playfair = Playfair_Display({
   style: ['normal', 'italic'],
   variable: '--font-playfair',
   display: 'swap',
+  preload: false,
 })
 
 export const metadata: Metadata = {
