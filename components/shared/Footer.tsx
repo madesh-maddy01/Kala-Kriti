@@ -40,7 +40,7 @@ export function Footer() {
                 alt="Kala Kriti"
                 width={160}
                 height={52}
-                className="h-[62px] w-auto object-contain brightness-0 invert"
+                className="h-[74px] w-auto object-contain brightness-0 invert"
               />
             </div>
             <p className="font-body text-sm leading-relaxed text-white/60 mb-4">

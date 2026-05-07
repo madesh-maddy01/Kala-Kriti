@@ -71,7 +71,7 @@ export function Navbar() {
                 height={52}
                 priority
                 className={cn(
-                  'h-[57px] w-auto object-contain transition-all duration-500',
+                  'h-[70px] w-auto object-contain transition-all duration-500',
                   scrolled ? 'brightness-0' : 'brightness-0 invert'
                 )}
               />
