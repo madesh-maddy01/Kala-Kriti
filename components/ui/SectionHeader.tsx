@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface SectionHeaderProps {
@@ -20,47 +21,70 @@ export function SectionHeader({
   dark = false,
   className,
 }: SectionHeaderProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-50px 0px' })
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={cn(
-        'mb-14',
-        centered && 'text-center',
-        className
-      )}
+    <div
+      ref={ref}
+      className={cn('mb-14', centered && 'text-center', className)}
     >
-      {/* Label */}
+      {/* Label row with animated lines */}
       <div className={cn('flex items-center gap-4 mb-4', centered && 'justify-center')}>
-        <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold" />
-        <span className={cn(
-          'text-xs font-body tracking-[0.35em] uppercase font-medium',
-          dark ? 'text-saffron-light' : 'text-saffron'
-        )}>
+        <motion.span
+          className="h-px bg-gradient-to-r from-transparent to-gold"
+          initial={{ width: 0, opacity: 0 }}
+          animate={isInView ? { width: '3rem', opacity: 1 } : { width: 0, opacity: 0 }}
+          transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <motion.span
+          className={cn(
+            'text-xs font-body tracking-[0.35em] uppercase font-medium',
+            dark ? 'text-saffron-light' : 'text-saffron'
+          )}
+          initial={{ opacity: 0, y: 6 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
           {label}
-        </span>
-        <span className="h-px w-12 bg-gradient-to-l from-transparent to-gold" />
+        </motion.span>
+        <motion.span
+          className="h-px bg-gradient-to-l from-transparent to-gold"
+          initial={{ width: 0, opacity: 0 }}
+          animate={isInView ? { width: '3rem', opacity: 1 } : { width: 0, opacity: 0 }}
+          transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        />
       </div>
 
-      {/* Title */}
-      <h2 className={cn(
-        'font-heading font-light mb-4',
-        dark ? 'text-white' : 'text-charcoal-dark',
-        centered ? 'mx-auto' : ''
-      )}
-      style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.1, maxWidth: '800px' }}
-      >
-        {title}
-      </h2>
+      {/* Title — clip reveal */}
+      <div style={{ overflow: 'hidden' }}>
+        <motion.h2
+          className={cn(
+            'font-heading font-light mb-4',
+            dark ? 'text-white' : 'text-charcoal-dark',
+            centered ? 'mx-auto' : ''
+          )}
+          style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.08, maxWidth: '800px' }}
+          initial={{ y: '100%', opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: '100%', opacity: 0 }}
+          transition={{ duration: 0.65, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {title}
+        </motion.h2>
+      </div>
 
       {/* Lotus divider */}
-      <div className="flex items-center gap-3 mb-4" style={{ justifyContent: centered ? 'center' : 'flex-start' }}>
+      <motion.div
+        className="flex items-center gap-3 mb-4"
+        style={{ justifyContent: centered ? 'center' : 'flex-start' }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.4, delay: 0.42 }}
+      >
         <span className="h-px w-16" style={{
           background: centered
             ? 'linear-gradient(90deg, transparent, rgba(184,134,11,0.5))'
-            : 'linear-gradient(90deg, rgba(184,134,11,0.5), transparent)'
+            : 'linear-gradient(90deg, rgba(184,134,11,0.5), transparent)',
         }} />
         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-60">
           <path d="M10 0C10 0 6 4 2 4C4 8 8 10 10 16C12 10 16 8 18 4C14 4 10 0 10 0Z" fill="#B8860B" opacity="0.6"/>
@@ -69,22 +93,26 @@ export function SectionHeader({
         <span className="h-px w-16" style={{
           background: centered
             ? 'linear-gradient(90deg, rgba(184,134,11,0.5), transparent)'
-            : 'linear-gradient(90deg, transparent, rgba(184,134,11,0.5))'
+            : 'linear-gradient(90deg, transparent, rgba(184,134,11,0.5))',
         }} />
-      </div>
+      </motion.div>
 
       {/* Subtitle */}
       {subtitle && (
-        <p className={cn(
-          'font-body font-light leading-relaxed',
-          dark ? 'text-white/60' : 'text-charcoal-light/70',
-          centered ? 'mx-auto' : ''
-        )}
-        style={{ maxWidth: '600px', fontSize: '1.0625rem' }}
+        <motion.p
+          className={cn(
+            'font-body font-light leading-relaxed',
+            dark ? 'text-white/60' : 'text-charcoal-light/70',
+            centered ? 'mx-auto' : ''
+          )}
+          style={{ maxWidth: '600px', fontSize: '1.0625rem' }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.45, delay: 0.5 }}
         >
           {subtitle}
-        </p>
+        </motion.p>
       )}
-    </motion.div>
+    </div>
   )
 }

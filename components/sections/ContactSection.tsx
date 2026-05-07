@@ -131,7 +131,11 @@ export function ContactSection() {
                 <div className="flex items-center gap-2 mb-0.5">
                   <p className="text-white font-body font-semibold text-base">{t('contact_whatsapp')}</p>
                   <span className="flex items-center gap-1 text-[10px] font-body text-green-400 bg-green-400/10 px-1.5 py-0.5 rounded-full">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
+                    <motion.span
+                      className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"
+                      animate={{ opacity: [0.55, 1, 0.55], scale: [0.85, 1.1, 0.85] }}
+                      transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                    />
                     Online
                   </span>
                 </div>

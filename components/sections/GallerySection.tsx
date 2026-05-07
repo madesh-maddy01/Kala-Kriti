@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { X, ZoomIn, MessageCircle, ChevronLeft, ChevronRight, Clock, Ruler, Frame, Crown, Maximize2 } from 'lucide-react'
 import type { Painting } from '@/data/paintings'
 import { paintingCategories } from '@/data/paintings'
@@ -20,9 +20,7 @@ export function GallerySection({ paintings }: GallerySectionProps) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [selectedPainting, setSelectedPainting] = useState<Painting | null>(null)
   const [lightboxIdx, setLightboxIdx] = useState(0)
-  const [viewMode, setViewMode] = useState<'grid' | 'masonry'>('masonry')
-
-  const [visibleCount, setVisibleCount] = useState(8)
+  const [visibleCount, setVisibleCount] = useState(12)
 
   const filtered = useMemo(() =>
     activeCategory === 'All' ? paintings : paintings.filter(p => p.category === activeCategory),

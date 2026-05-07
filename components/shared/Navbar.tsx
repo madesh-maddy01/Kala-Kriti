@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, MessageCircle, Menu, X } from 'lucide-react'
 import { siteConfig, getWhatsAppUrl, getPhoneUrl } from '@/lib/config'
@@ -63,20 +64,17 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-5 lg:px-10">
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="flex-shrink-0 group">
-              <div className="flex flex-col">
-                <span className={cn(
-                  'font-heading font-medium tracking-tight transition-all duration-500',
-                  scrolled ? 'text-charcoal-dark text-2xl' : 'text-white text-2xl lg:text-3xl'
-                )}>
-                  Kala <span className="text-gold-light italic">Kriti</span>
-                </span>
-                <span className={cn(
-                  'text-[9px] tracking-[0.35em] uppercase font-body transition-all duration-500',
-                  scrolled ? 'text-sandstone-dark' : 'text-white/60'
-                )}>
-                  {t('nav_tagline')}
-                </span>
-              </div>
+              <Image
+                src="/main_logo.png"
+                alt="Kala Kriti"
+                width={160}
+                height={52}
+                priority
+                className={cn(
+                  'h-11 w-auto object-contain transition-all duration-500',
+                  scrolled ? 'brightness-0' : 'brightness-0 invert'
+                )}
+              />
             </Link>
 
             <nav className="hidden lg:flex items-center gap-1">

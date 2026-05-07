@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Phone, Mail, Instagram, Facebook, MessageCircle, Crown } from 'lucide-react'
 import { siteConfig, getWhatsAppUrl, getPhoneUrl } from '@/lib/config'
 
@@ -34,12 +35,13 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <h2 className="font-heading text-3xl font-medium text-white">
-                Kala <span className="text-gold-light italic">Kriti</span>
-              </h2>
-              <p className="text-xs tracking-[0.3em] uppercase text-white/40 mt-1 font-body">
-                Divine Handmade Art
-              </p>
+              <Image
+                src="/main_logo.png"
+                alt="Kala Kriti"
+                width={160}
+                height={52}
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="font-body text-sm leading-relaxed text-white/60 mb-4">
               Handcrafted devotional paintings of Hindu Gods & Goddesses, adorned with pure 24K gold plating on sacred elements. Created with devotion, skill, and timeless artistry.
