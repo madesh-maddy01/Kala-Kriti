@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://kalakriti.in/sitemap.xml',
+    sitemap: 'https://www.mykalakriti.com/sitemap.xml',
   }
 }

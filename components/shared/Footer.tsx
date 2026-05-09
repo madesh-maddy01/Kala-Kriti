@@ -183,6 +183,17 @@ export function Footer() {
             <p className="font-body text-xs text-white/30">
               Handmade with devotion in India 🇮🇳
             </p>
+            <p className="font-body text-xs text-white/25 mt-0.5">
+              Designed & developed by{' '}
+              <a
+                href="https://www.decypherlab.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold-light/40 hover:text-gold-light/70 transition-colors duration-300 underline underline-offset-2"
+              >
+                Decypher Lab
+              </a>
+            </p>
           </div>
         </div>
 
